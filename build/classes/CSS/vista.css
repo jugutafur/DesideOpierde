@@ -1,0 +1,14 @@
+.mainFxmlClass {
+ background-color: blue;
+}
+
+#btnIniciar{
+    -fx-background-color: #B4F562;
+}
+
+#btnAyuda{
+    -fx-background-color: #55DAEC;
+}
+#Principal{
+    -fx-background-color: #32858A;
+}
