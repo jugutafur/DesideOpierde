@@ -33,6 +33,7 @@ public class Main extends Application {
             imgView.setX(0);
             imgView.setY(0);
 
+
             // Cargar la imagen crear objeto logo
             Image logo = new Image(getClass().getResourceAsStream("/resources/logo.JPG"));
             ImageView imgViewlogo = new ImageView(logo);
@@ -50,6 +51,8 @@ public class Main extends Application {
             //Position
             imgViewReloj.setX(400);
             imgViewReloj.setY(200);
+
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
