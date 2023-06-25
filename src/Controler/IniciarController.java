@@ -9,11 +9,13 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Stage;
 import java.net.URL;
@@ -32,6 +34,10 @@ import Model.Usuario;
 
 public class IniciarController implements Initializable {
     //esta linea de codigo permite verificar nombre de usuario y da una alerta si el usuario escribio correctamente su nombre
+
+    @FXML
+    private Button BotonFlotante;
+
     @FXML
     private TextArea nombreUsuarioTextArea;
 
@@ -47,6 +53,8 @@ public class IniciarController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText(mensajeFelicitaciones);
             alert.showAndWait();
+            BotonFlotante.setVisible(true);
+
         } else {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Error");
@@ -56,10 +64,34 @@ public class IniciarController implements Initializable {
         }
     }
 
+
     private boolean verificarNombreUsuario(String nombreUsuario) {
-        // Aquí puedes implementar tus propias reglas de verificación del nombre de usuario
+
         return !nombreUsuario.isEmpty(); // Verifica que el nombre de usuario no esté vacío
     }
+
+    //posible error codigo
+    @FXML
+    private void abrirInstrucciones(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Instrucciones.fxml"));
+            Parent root = loader.load();
+
+            //Abrir Vista Iniciar
+            InstruccionesController InstruccionesController = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    //finaliza posible error
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("Va a pintar el componente");

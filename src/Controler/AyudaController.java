@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class AyudaController implements Initializable {
 
-//probable error de codigo inicia aqui
+
 @FXML
 private Button BotonVolver ;    
 
@@ -24,7 +24,7 @@ private Button BotonVolver ;
         stage.close();
     }
 
-    //probable error de codigo finaliza aqui
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
