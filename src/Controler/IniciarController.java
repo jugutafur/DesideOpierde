@@ -31,7 +31,7 @@ import Model.Usuario;
 
 
 public class IniciarController implements Initializable {
-    //posiblemente borrarlo inicio error
+    //esta linea de codigo permite verificar nombre de usuario y da una alerta si el usuario escribio correctamente su nombre
     @FXML
     private TextArea nombreUsuarioTextArea;
 
