@@ -30,7 +30,9 @@ import javafx.scene.control.Alert.AlertType;
 import Model.Usuario;
 
 
-
+/**
+ * Controlador para gestionar la vista de "iniciar".
+ */
 
 public class IniciarController implements Initializable {
     //esta linea de codigo permite verificar nombre de usuario y da una alerta si el usuario escribio correctamente su nombre
@@ -40,6 +42,13 @@ public class IniciarController implements Initializable {
 
     @FXML
     private TextArea nombreUsuarioTextArea;
+
+
+    /**
+     * Maneja el evento del botón Guardar.
+     *
+     * @param event El evento de acción que desencadena el guardado del nombre de usuario.
+     */
 
     @FXML
     private void handleGuardarButtonClick(ActionEvent event) {
@@ -63,14 +72,24 @@ public class IniciarController implements Initializable {
             alert.showAndWait();
         }
     }
-
+    /**
+     * Verifica si el nombre de usuario es válido y si lo es muestra una alerta inidica que exitosamente se guardo el nombre en el metodo Usuario.
+     *
+     * @param nombreUsuario  El nombre de usuario a verificar.
+     * @return true si el nombre de usuario no está vacío, false en caso contrario.
+     */
 
     private boolean verificarNombreUsuario(String nombreUsuario) {
 
         return !nombreUsuario.isEmpty(); // Verifica que el nombre de usuario no esté vacío
     }
 
-    //posible error codigo
+    /**
+     * Abre la vista de Instrucciones cuando se hace clic en el botón "Instrucciones".
+     *
+     * @param event  El evento de acción que desencadena la apertura de la vista de Instrucciones.
+     */
+
     @FXML
     private void abrirInstrucciones(ActionEvent event) {
         try {
@@ -90,7 +109,13 @@ public class IniciarController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-    //finaliza posible error
+
+    /**
+     * Inicializa el controlador después de que se haya cargado la interfaz de usuario.
+     *
+     * @param url       La ubicación utilizada para resolver rutas relativas para el objeto raíz o null si la ubicación no es conocida.
+     * @param rb        El recurso del paquete utilizado para localizar el objeto raíz o null si el recurso no se encuentra.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
