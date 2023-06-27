@@ -26,10 +26,32 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import Model.Usuario;
+import javafx.scene.Parent;
+import javafx.stage.Modality;
 
 public class InstruccionesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+    }
+
+    @FXML
+    private void abrirInicio(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Inicio.fxml"));
+            Parent root = loader.load();
+
+            //Abrir Vista Iniciar
+            InicioController inicioController = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
