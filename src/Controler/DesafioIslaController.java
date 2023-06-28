@@ -62,7 +62,9 @@ import javafx.util.Duration;
 import Model.Tiempo;
 import Model.Puntuacion;
 import java.io.IOException;
-
+/**
+ * Controlador para la vista del desafío de la isla.
+ */
 
 public class DesafioIslaController implements Initializable {
 
@@ -88,12 +90,25 @@ public class DesafioIslaController implements Initializable {
 
     private Stage nuevaVentana;
 
+    /**
+     * Método inicializador del controlador.
+     * Se llama automáticamente al cargar la vista.
+     *
+     * @param url            URL de la ubicación del objeto de raíz.
+     * @param resourceBundle El paquete de recursos utilizado por el objeto de raíz.
+     */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Tiempo.iniciarCronometro(TiempoLabel, this::abrirNuevaVentana);
         puntuacion = Puntuacion.getInstance();
         actualizarPuntuacion();
     }
+    /**
+     * Método para aumentar la puntuación al hacer clic en el botón "Fogata".
+     * Aumenta la puntuación en 20 y actualiza la puntuación en la interfaz.
+     * Hace visible el botón "ContinuarDesafioIsla".
+     */
 
     @FXML
     public void aumentarPuntuacionBotonFogata() {
@@ -102,7 +117,11 @@ public class DesafioIslaController implements Initializable {
         ContinuarDesafioIsla.setVisible(true);
        // mostrarAlerta("Obtuviste 20 puntos");
     }
-
+    /**
+     * Método para aumentar la puntuación al hacer clic en el botón "Remar".
+     * Aumenta la puntuación en 5 y actualiza la puntuación en la interfaz.
+     * Hace visible el botón "ContinuarDesafioIsla".
+     */
     @FXML
     public void aumentarPuntuacionBotonRemar() {
         puntuacion.aumentarPuntuacion(5);
@@ -110,6 +129,11 @@ public class DesafioIslaController implements Initializable {
         ContinuarDesafioIsla.setVisible(true);
        // mostrarAlerta("Obtuviste 5 puntos");
     }
+    /**
+     * Método para aumentar la puntuación al hacer clic en el botón "Nadar".
+     * No aumenta la puntuación y actualiza la puntuación en la interfaz.
+     * Hace visible el botón "ContinuarDesafioIsla".
+     */
 
     @FXML
     public void aumentarPuntuacionBotonNadar() {
@@ -118,10 +142,19 @@ public class DesafioIslaController implements Initializable {
         ContinuarDesafioIsla.setVisible(true);
         //mostrarAlerta("Obtuviste 0 puntos");
     }
-
+    /**
+     * Actualiza la puntuación mostrada en la interfaz.
+     */
     private void actualizarPuntuacion() {
         PuntuacionLabel.setText(Integer.toString(puntuacion.getPuntuacion()));
     }
+    /**
+     * Método para manejar el evento de clic en el botón "ContinuarDesafioIsla".
+     * Se ejecuta al hacer clic en el botón y abre la siguiente escena (Desafío de la selva).
+     *
+     * @param event El evento de acción.
+     */
+
     @FXML
     private void handleContinuarIsla (ActionEvent event) {
         try {
@@ -141,11 +174,21 @@ public class DesafioIslaController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Método para abrir la nueva ventana cuando se acabe el tiempo.
+     * Se llama desde el cronómetro.
+     */
+
 
 
     //finaliza posible error codigo
 
     // Método para abrir la nueva ventana
+    /**
+     * Método para abrir la nueva ventana cuando se acabe el tiempo.
+     * Se llama desde el cronómetro.
+     */
+
     private void abrirNuevaVentana() {
         // Crear una instancia de FXMLLoader para cargar el contenido de la nueva ventana desde un archivo FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FinTiempo.fxml"));

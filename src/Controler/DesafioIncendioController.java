@@ -63,6 +63,9 @@ import Model.Tiempo;
 import Model.Puntuacion;
 import java.io.IOException;
 
+/**
+ * Controlador para la vista del desafío de incendio.
+ */
 
 public class DesafioIncendioController implements Initializable {
 
@@ -87,13 +90,23 @@ public class DesafioIncendioController implements Initializable {
     private Label TiempoLabel;
 
     private Stage nuevaVentana2;
-
+    /**
+     * Método inicializador del controlador.
+     * Se llama automáticamente al cargar la vista.
+     *
+     * @param url            URL de la ubicación del objeto de raíz.
+     * @param resourceBundle El paquete de recursos utilizado por el objeto de raíz.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         puntuacion = Puntuacion.getInstance();
         actualizarPuntuacion();
     }
-
+    /**
+     * Método para aumentar la puntuación al hacer clic en el botón "Zona Segura".
+     * Aumenta la puntuación en 20 y actualiza la puntuación en la interfaz.
+     * Hace visible el botón "IncendioContinuar".
+     */
     @FXML
     public void aumentarPuntuacionBotonZonaSegura() {
         puntuacion.aumentarPuntuacion(20);
@@ -121,6 +134,12 @@ public class DesafioIncendioController implements Initializable {
     private void actualizarPuntuacion() {
         PuntuacionLabel.setText(Integer.toString(puntuacion.getPuntuacion()));
     }
+    /**
+     * Método para avanzar a la siguiente escena (Desafío de inundación).
+     * Se ejecuta al hacer clic en el botón "IncendioContinuar".
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void SiguienteEscenaIncendio (ActionEvent event) {
         try {
