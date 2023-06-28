@@ -43,6 +43,7 @@ public class DesafioSelvaController implements Initializable {
     @FXML
     private Button BotonHuir;
 
+    @FXML
     private Puntuacion puntuacion;
 
     @FXML
@@ -51,6 +52,7 @@ public class DesafioSelvaController implements Initializable {
     @FXML
     private Label TiempoLabel;
 
+    @FXML
     private Stage nuevaVentana;
 
     @Override
@@ -83,7 +85,6 @@ public class DesafioSelvaController implements Initializable {
         //mostrarAlerta("Obtuviste 0 puntos");
         abrirNuevaVista();
     }
-
 
     private void actualizarPuntuacion() {
         PuntuacionLabel.setText(Integer.toString(puntuacion.getPuntuacion()));

@@ -50,11 +50,13 @@ public class DesafioIslaController implements Initializable {
     @FXML
     private Label PuntuacionLabel;
 
+    @FXML
     private Puntuacion puntuacion;
 
     @FXML
     private Label TiempoLabel;
 
+    @FXML
     private Stage nuevaVentana;
 
     @Override
