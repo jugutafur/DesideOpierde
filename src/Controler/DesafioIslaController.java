@@ -1,5 +1,32 @@
 package Controler;
-
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javafx.application.Application.launch;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Stage;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import Model.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,7 +63,11 @@ import Model.Tiempo;
 import Model.Puntuacion;
 import java.io.IOException;
 
+
 public class DesafioIslaController implements Initializable {
+
+    @FXML
+    private Button ContinuarDesafioIsla;
 
     @FXML
     private Button BotonFogata;
@@ -68,56 +99,49 @@ public class DesafioIslaController implements Initializable {
     public void aumentarPuntuacionBotonFogata() {
         puntuacion.aumentarPuntuacion(20);
         actualizarPuntuacion();
-        mostrarAlerta("Obtuviste 20 puntos");
+        ContinuarDesafioIsla.setVisible(true);
+       // mostrarAlerta("Obtuviste 20 puntos");
     }
 
     @FXML
     public void aumentarPuntuacionBotonRemar() {
         puntuacion.aumentarPuntuacion(5);
         actualizarPuntuacion();
-        mostrarAlerta("Obtuviste 5 puntos");
+        ContinuarDesafioIsla.setVisible(true);
+       // mostrarAlerta("Obtuviste 5 puntos");
     }
 
     @FXML
     public void aumentarPuntuacionBotonNadar() {
         puntuacion.aumentarPuntuacion(0);
         actualizarPuntuacion();
-        mostrarAlerta("Obtuviste 0 puntos");
+        ContinuarDesafioIsla.setVisible(true);
+        //mostrarAlerta("Obtuviste 0 puntos");
     }
 
     private void actualizarPuntuacion() {
         PuntuacionLabel.setText(Integer.toString(puntuacion.getPuntuacion()));
     }
-
-    private void mostrarAlerta(String mensaje) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Puntuación");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.setOnCloseRequest(event -> abrirNuevaVista());
-
-        alert.showAndWait();
-    }
-
-    private void abrirNuevaVista() {
+    @FXML
+    private void handleContinuarIsla (ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/DesafioSelva.fxml"));
-            AnchorPane root = loader.load();
+            Parent root = loader.load();
 
+            //Abrir Vista Iniciar
+            DesafioSelvaController DesafioSelvaController = loader.getController();
+
+            Scene scene = new Scene(root);
             Stage stage = new Stage();
-            stage.setTitle("Nueva Vista");
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
 
-            // Cerrar la vista actual
-            Stage currentStage = (Stage) BotonFogata.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
+
 
     //finaliza posible error codigo
 

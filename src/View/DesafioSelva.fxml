@@ -38,10 +38,10 @@
         <Text fill="#f8f8f8" layoutX="193.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Intentar domar el animal" />
         <Text fill="#f8f8f8" layoutX="347.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lanzarle una roca" />
         <Text fill="#f8f8f8" layoutX="508.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡HUIR!" />
-        <Button fx:id="BotonDomar"  layoutX="193.0" layoutY="271.0" mnemonicParsing="false" opacity="0.0" prefHeight="127.0" prefWidth="130.0" text="Button" />
-        <Button fx:id="BotonRoca" layoutX="334.0" layoutY="279.0" mnemonicParsing="false" opacity="0.0" prefHeight="119.0" prefWidth="121.0" text="Button" />
-        <Button fx:id="BotonHuir" layoutX="464.0" layoutY="275.0" mnemonicParsing="false" opacity="0.0" prefHeight="119.0" prefWidth="121.0" text="Button" />
-        <Button fx:id="BotonSalirSelva"  layoutX="22.0" layoutY="330.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Salir">
+        <Button fx:id="BotonDomar" layoutX="193.0" layoutY="271.0" mnemonicParsing="false" opacity="0.0" prefHeight="127.0" onAction="#aumentarPuntuacionBotonDomar" prefWidth="130.0" text="Button" />
+        <Button fx:id="BotonRoca" layoutX="334.0" layoutY="279.0" mnemonicParsing="false" opacity="0.0" prefHeight="119.0" onAction="#aumentarPuntuacionBotonRoca" prefWidth="121.0" text="Button" />
+        <Button fx:id="BotonHuir" layoutX="464.0" layoutY="275.0" mnemonicParsing="false" opacity="0.0" prefHeight="119.0" onAction="#aumentarPuntuacionBotonHuir" prefWidth="121.0" text="Button" />
+        <Button fx:id="BotonSalirSelva" layoutX="22.0" layoutY="330.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Salir">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
@@ -66,17 +66,22 @@
                 <Font size="13.0" />
             </font>
         </Label>
-        <Label id="LabelPuntuacion2" fx:id="PuntuacionLabel" layoutX="562.0" layoutY="230.0">
+        <Label id="PuntuacionLabel" fx:id="PuntuacionLabel" layoutX="562.0" layoutY="230.0">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
         </Label>
-        <Label fx:id="TiempoLabel2" layoutX="98.0" layoutY="17.0" prefHeight="29.0" prefWidth="69.0" />
+        <Label fx:id="TiempoLabel" layoutX="98.0" layoutY="17.0" prefHeight="29.0" prefWidth="69.0" />
       <Button fx:id="BotonPista2" layoutX="65.0" layoutY="266.0" mnemonicParsing="false" opacity="0.0" prefHeight="61.0" prefWidth="69.0" text="Button" />
       <ImageView fitHeight="192.0" fitWidth="210.0" layoutX="202.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../resources/Animal.png" />
          </image>
       </ImageView>
+      <Button fx:id="BotonContinuarSelva" layoutX="206.0" layoutY="212.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" visible="false" onAction="#ContinuarSelva" style="-fx-background-color: #3AD314;" text="Continuar">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
