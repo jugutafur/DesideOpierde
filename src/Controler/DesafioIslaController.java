@@ -15,6 +15,16 @@ import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import Model.Puntuacion;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.util.Duration;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 
 /**
  * Controlador para la vista del desafío de la isla.
@@ -42,11 +52,26 @@ public class DesafioIslaController implements Initializable {
     @FXML
     private Label TiempoLabel;
 
-    private Stage nuevaVentana;
-    private int tiempoRestante;
-    private Tiempo tiempo;
+    private Stage NuevaVentana;
 
+    private Timeline timeline;
+    private int tiempoRestante = 30; // 2 minutos en segundos
 
+    private void actualizarTemporizador(ActionEvent event) {
+        int minutos = tiempoRestante / 60;
+        int segundos = tiempoRestante % 60;
+        TiempoLabel.setText(String.format("%02d:%02d", minutos, segundos));
+
+        if (tiempoRestante > 0) {
+            tiempoRestante--;
+        } else {
+            // Si el tiempo ha llegado a 0, detener el temporizador y abrir la nueva ventana
+            timeline.stop();
+            timeline.stop();
+            abrirNuevaVentana();
+
+        }
+    }
 
     /**
      * Método inicializador del controlador.
@@ -60,10 +85,13 @@ public class DesafioIslaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tiempo = new Tiempo();
-        Tiempo.iniciarCronometro(TiempoLabel, this::abrirNuevaVentana);
         puntuacion = Puntuacion.getInstance();
         actualizarPuntuacion();
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), this::actualizarTemporizador));
+
+        timeline.setCycleCount(Timeline.INDEFINITE); // Repetir indefinidamente
+        timeline.play();
+
     }
     /**
      * Método para aumentar la puntuación al hacer clic en el botón "Fogata".
@@ -71,10 +99,7 @@ public class DesafioIslaController implements Initializable {
      * Hace visible el botón "ContinuarDesafioIsla".
      */
 //prob code error
-    public void reiniciarCronometro() {
-        tiempoRestante = 2 * 60; // Reiniciar el tiempo restante a 2 minutos
-        Tiempo.iniciarCronometro(TiempoLabel, this::abrirNuevaVentana);
-    }
+
     //prob code error
 
     @FXML
@@ -85,6 +110,7 @@ public class DesafioIslaController implements Initializable {
         BotonFogata.setDisable(true);
         BotonRemar.setDisable(true);
         BotonNadar.setDisable(true);
+        timeline.stop();
        // mostrarAlerta("Obtuviste 20 puntos");
     }
     /**
@@ -100,6 +126,7 @@ public class DesafioIslaController implements Initializable {
         BotonRemar.setDisable(true);
         BotonFogata.setDisable(true);
         BotonNadar.setDisable(true);
+        timeline.stop();
        // mostrarAlerta("Obtuviste 5 puntos");
     }
     /**
@@ -116,6 +143,7 @@ public class DesafioIslaController implements Initializable {
         BotonNadar.setDisable(true);
         BotonRemar.setDisable(true);
         BotonFogata.setDisable(true);
+        timeline.stop();
         //mostrarAlerta("Obtuviste 0 puntos");
     }
     /**
@@ -134,14 +162,13 @@ public class DesafioIslaController implements Initializable {
     @FXML
     private void handleContinuarIsla (ActionEvent event) {
         try {
-            reiniciarCronometro();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/DesafioSelva.fxml"));
             Parent root = loader.load();
 
             // Obtén el controlador de la nueva vista
             DesafioSelvaController DesafioSelvaController = loader.getController();
             // Pasa el valor del tiempo restante a la nueva vista
-            DesafioSelvaController.setTiempoRestante(tiempoRestante);
+
 
 
             Scene scene = new Scene(root);
@@ -154,36 +181,27 @@ public class DesafioIslaController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-    /**
-     * Método para abrir la nueva ventana cuando se acabe el tiempo.
-     * Se llama desde el cronómetro.
-     */
-
-
-
-    //finaliza posible error codigo
-
-    // Método para abrir la nueva ventana
-    /**
-     * Método para abrir la nueva ventana cuando se acabe el tiempo.
-     * Se llama desde el cronómetro.
-     */
 
     private void abrirNuevaVentana() {
+
         // Crear una instancia de FXMLLoader para cargar el contenido de la nueva ventana desde un archivo FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FinTiempo.fxml"));
 
         try {
             Parent root = loader.load(); // Cargar el contenido del archivo FXML en un objeto Parent
 
-            // Crear una nueva instancia de Stage y configurarla
-            nuevaVentana = new Stage();
-            nuevaVentana.setTitle("Nueva Ventana");
-            nuevaVentana.setScene(new Scene(root));
-            nuevaVentana.show();
+            NuevaVentana = new Stage();
+            NuevaVentana.setTitle("Nueva Ventana");
+            NuevaVentana.setScene(new Scene(root));
+            NuevaVentana.show();;
+
         }
         catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
+
+
+

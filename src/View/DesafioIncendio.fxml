@@ -41,9 +41,9 @@
          <font>
             <Font size="10.0" />
          </font></Text>
-        <Button fx:id="BotonNohacernd" layoutX="198.0" layoutY="267.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonNohacernd" opacity="0.0" prefHeight="127.0" prefWidth="130.0" text="Button" />
-        <Button fx:id="BotonZonaSegura" layoutX="349.0" layoutY="284.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonZonaSegura" opacity="0.0" prefHeight="113.0" prefWidth="100.0" text="Button" />
-        <Button fx:id="BotonApagarIncendio" layoutX="468.0" layoutY="281.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonApagarIncendio" opacity="0.0" prefHeight="119.0" prefWidth="121.0" text="Button" />
+        <Button fx:id="BotonNohacernd" disable="false" layoutX="198.0" layoutY="267.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonNohacernd" opacity="0.0" prefHeight="127.0" prefWidth="130.0" text="Button" />
+        <Button fx:id="BotonZonaSegura" disable="false" layoutX="349.0" layoutY="284.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonZonaSegura" opacity="0.0" prefHeight="113.0" prefWidth="100.0" text="Button" />
+        <Button fx:id="BotonApagarIncendio" disable="false" layoutX="468.0" layoutY="281.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonApagarIncendio" opacity="0.0" prefHeight="119.0" prefWidth="121.0" text="Button" />
         <Button fx:id="BotonSalir3" layoutX="22.0" layoutY="330.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Salir">
             <font>
                 <Font name="System Bold" size="22.0" />
@@ -69,14 +69,14 @@
                 <Font size="13.0" />
             </font>
         </Label>
-        <Label fx:id="PuntuacionLabel" layoutX="562.0" layoutY="230.0">
+        <Label fx:id="PuntuacionLabel" layoutX="562.0" layoutY="230.0" textFill="#eeeeee">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
         </Label>
         <Label fx:id="TiempoLabel" layoutX="98.0" layoutY="17.0" prefHeight="29.0" prefWidth="69.0" />
         <Button fx:id="BotonPista3" layoutX="65.0" layoutY="266.0" mnemonicParsing="false" opacity="0.0" prefHeight="61.0" prefWidth="69.0" text="Button" />
-      <Button fx:id="IncendioContinuar"  layoutX="207.0" layoutY="193.0" mnemonicParsing="false" prefHeight="54.0" visible="false" onAction="#SiguienteEscenaIncendio" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Continuar">
+      <Button fx:id="IncendioContinuar" layoutX="207.0" layoutY="193.0" mnemonicParsing="false" onAction="#SiguienteEscenaIncendio" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Continuar" visible="false">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

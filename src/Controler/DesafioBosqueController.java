@@ -24,18 +24,18 @@ import javafx.util.Duration;
  * Controlador para la vista del desafío de incendio.
  */
 
-public class DesafioInundacionController implements Initializable {
+public class DesafioBosqueController implements Initializable {
     @FXML
-    private Button BotonContinuarinundacion;
+    private Button GranFinal;
 
     @FXML
-    private Button BotonNoHacerND;
+    private Button BotonTrepar;
 
     @FXML
-    private Button BotonTerrenoAlto;
+    private Button BotonArroyo;
 
     @FXML
-    private Button BotonNadarInundacion;
+    private Button BotonGritar;
 
     @FXML
     private Label PuntuacionLabel;
@@ -47,6 +47,7 @@ public class DesafioInundacionController implements Initializable {
     private Timeline timeline;
 
     private Stage NuevaVentana;
+    private Stage abrirFinalVentana;
     private int tiempoRestante = 30; // 2 minutos en segundos
     private void actualizarTemporizador(ActionEvent event) {
         int minutos = tiempoRestante / 60;
@@ -74,37 +75,37 @@ public class DesafioInundacionController implements Initializable {
     }
 
     @FXML
-    public void aumentarPuntuacionBotonTerrenoAlto() {
+    public void aumentarPuntuacionBotonArroyo() {
         puntuacion.aumentarPuntuacion(20);
         actualizarPuntuacion();
-        BotonContinuarinundacion.setVisible(true);
-        BotonNoHacerND.setDisable(true);
-        BotonTerrenoAlto.setDisable(true);
-        BotonNadarInundacion.setDisable(true);
+        GranFinal.setVisible(true);
+        BotonTrepar.setDisable(true);
+        BotonGritar.setDisable(true);
+        BotonArroyo.setDisable(true);
         timeline.stop();
         // mostrarAlerta("Obtuviste 20 puntos");
     }
 
     @FXML
-    public void aumentarPuntuacionBotonNadarInundacion() {
+    public void aumentarPuntuacionBotonTrepar() {
         puntuacion.aumentarPuntuacion(5);
         actualizarPuntuacion();
-        BotonContinuarinundacion.setVisible(true);
-        BotonNoHacerND.setDisable(true);
-        BotonTerrenoAlto.setDisable(true);
-        BotonNadarInundacion.setDisable(true);
+        GranFinal.setVisible(true);
+        BotonTrepar.setDisable(true);
+        BotonGritar.setDisable(true);
+        BotonArroyo.setDisable(true);
         timeline.stop();
         // mostrarAlerta("Obtuviste 5 puntos");
     }
 
     @FXML
-    public void  aumentarPuntuacionBotonNoHacerND() {
+    public void  aumentarPuntuacionBotonNadarGritar() {
         puntuacion.aumentarPuntuacion(0);
         actualizarPuntuacion();
-        BotonContinuarinundacion.setVisible(true);
-        BotonNoHacerND.setDisable(true);
-        BotonTerrenoAlto.setDisable(true);
-        BotonNadarInundacion.setDisable(true);
+        GranFinal.setVisible(true);
+        BotonTrepar.setDisable(true);
+        BotonGritar.setDisable(true);
+        BotonArroyo.setDisable(true);
         timeline.stop();
         //mostrarAlerta("Obtuviste 0 puntos");
     }
@@ -114,13 +115,21 @@ public class DesafioInundacionController implements Initializable {
     }
 
     @FXML
-    private void ContinuarVistaBosque (ActionEvent event) {
+    private void ContinuarFinal(ActionEvent event) {
+        if (puntuacion.getPuntuacion() >= 100) {
+            ContinuarFinal();
+        } else {
+            abrirFinalVentana();
+        }
+    }
+    @FXML
+    private void ContinuarFinal () {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/DesafioBosque.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Ganaste.fxml"));
             Parent root = loader.load();
 
             //Abrir Vista Iniciar
-            DesafioBosqueController DesafioBosqueController = loader.getController();
+            GanasteController GanasteController = loader.getController();
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -133,6 +142,24 @@ public class DesafioInundacionController implements Initializable {
         }
     }
 
+    private void abrirFinalVentana () {
+
+        // Crear una instancia de FXMLLoader para cargar el contenido de la nueva ventana desde un archivo FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FinPuntuacion.fxml"));
+
+        try {
+            Parent root = loader.load(); // Cargar el contenido del archivo FXML en un objeto Parent
+
+            NuevaVentana = new Stage();
+            NuevaVentana.setTitle("Nueva Ventana");
+            NuevaVentana.setScene(new Scene(root));
+            NuevaVentana.show();;
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void abrirNuevaVentana() {
 

@@ -1,7 +1,10 @@
 package Controler;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +19,7 @@ import static javafx.application.Application.launch;
 
 import javafx.scene.control.Label;
 import Model.Puntuacion;
+import javafx.util.Duration;
 
 
 public class DesafioSelvaController implements Initializable {
@@ -33,30 +37,45 @@ public class DesafioSelvaController implements Initializable {
     private Button BotonHuir;
 
     @FXML
+    private Label TiempoLabel;
+
+    @FXML
     private Label PuntuacionLabel;
 
     private Puntuacion puntuacion;
 
-    @FXML
-    private Label TiempoLabel;
+    private Timeline timeline;
+    private Stage NuevaVentana;
 
-    private Stage nuevaVentana2;
-    private int tiempoRestante;
-    private Tiempo tiempo;
+    private int tiempoRestante = 30; // 2 minutos en segundos
+    private void actualizarTemporizador(ActionEvent event) {
+        int minutos = tiempoRestante / 60;
+        int segundos = tiempoRestante % 60;
+        TiempoLabel.setText(String.format("%02d:%02d", minutos, segundos));
 
-    public void reiniciarCronometro() {
-        tiempoRestante = 2 * 60; // Reiniciar el tiempo restante a 2 minuto
+        if (tiempoRestante > 0) {
+            tiempoRestante--;
+        } else {
+            // Si el tiempo ha llegado a 0, detener el temporizador y abrir la nueva ventana
+            timeline.stop();
+            timeline.stop();
+            abrirNuevaVentana();
+
+        }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         puntuacion = Puntuacion.getInstance();
         actualizarPuntuacion();
-        TiempoLabel.setText(Tiempo.formatearTiempo(tiempoRestante));
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), this::actualizarTemporizador));
+
+        timeline.setCycleCount(Timeline.INDEFINITE); // Repetir indefinidamente
+        timeline.play();
+
     }
 
-    public void setTiempoRestante(int tiempoRestante) {
-        this.tiempoRestante = tiempoRestante;
-    }
+
 
 
     @FXML
@@ -64,6 +83,10 @@ public class DesafioSelvaController implements Initializable {
         puntuacion.aumentarPuntuacion(20);
         actualizarPuntuacion();
         BotonContinuarSelva.setVisible(true);
+        BotonDomar.setDisable(true);
+        BotonRoca.setDisable(true);
+        BotonHuir.setDisable(true);
+        timeline.stop();
         // mostrarAlerta("Obtuviste 20 puntos");
     }
 
@@ -72,6 +95,10 @@ public class DesafioSelvaController implements Initializable {
         puntuacion.aumentarPuntuacion(5);
         actualizarPuntuacion();
         BotonContinuarSelva.setVisible(true);
+        BotonDomar.setDisable(true);
+        BotonRoca.setDisable(true);
+        BotonHuir.setDisable(true);
+        timeline.stop();
         // mostrarAlerta("Obtuviste 5 puntos");
     }
 
@@ -80,16 +107,21 @@ public class DesafioSelvaController implements Initializable {
         puntuacion.aumentarPuntuacion(0);
         actualizarPuntuacion();
         BotonContinuarSelva.setVisible(true);
+        BotonDomar.setDisable(true);
+        BotonRoca.setDisable(true);
+        BotonHuir.setDisable(true);
+        timeline.stop();
         //mostrarAlerta("Obtuviste 0 puntos");
     }
 
     private void actualizarPuntuacion() {
         PuntuacionLabel.setText(Integer.toString(puntuacion.getPuntuacion()));
+
     }
+    
     @FXML
     private void ContinuarSelva (ActionEvent event) {
         try {
-            reiniciarCronometro();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/DesafioIncendio.fxml"));
             Parent root = loader.load();
 
@@ -107,7 +139,24 @@ public class DesafioSelvaController implements Initializable {
         }
     }
 
+    private void abrirNuevaVentana() {
 
+        // Crear una instancia de FXMLLoader para cargar el contenido de la nueva ventana desde un archivo FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FinTiempo.fxml"));
+
+        try {
+            Parent root = loader.load(); // Cargar el contenido del archivo FXML en un objeto Parent
+
+            NuevaVentana = new Stage();
+            NuevaVentana.setTitle("Nueva Ventana");
+            NuevaVentana.setScene(new Scene(root));
+            NuevaVentana.show();;
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     //finaliza posible error codigo
 
     // Método para abrir la nueva ventana
