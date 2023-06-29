@@ -28,34 +28,13 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import Model.Usuario;
-
-public class InstruccionesController implements Initializable {
-
-    @FXML
-    private Button BotonContinuar;
-
-    @FXML
-    private void handleBotonContinuar(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/DesafioIsla.fxml"));
-            Parent root = loader.load();
-
-            //Abrir Vista Iniciar
-            DesafioIslaController desafioIslaController = loader.getController();
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+public class FinPuntuacionController implements Initializable {
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
 
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }
+
+
 }

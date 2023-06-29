@@ -1,4 +1,5 @@
 package Controler;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +28,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import Model.Usuario;
-public class Escenario2Controller implements Initializable {
+public class DesafioInundacionController implements Initializable {
 
     @Override
 

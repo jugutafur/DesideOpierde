@@ -11,13 +11,20 @@ import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
-
+/**
+ * Controlador que permite gestionar la vista de "Ayuda".
+ */
 public class AyudaController implements Initializable {
 
 
 @FXML
-private Button BotonVolver ;    
-
+private Button BotonVolver ;
+    /**
+     * Maneja el evento de clic en el botón "Volver".
+     * Cierra la ventana actual .
+     *
+     * @param event Evento de acción que desencadena el cierre de la ventana.
+     */
     @FXML
     private void handleButtonClick(ActionEvent event) {
         Stage stage = (Stage) BotonVolver.getScene().getWindow();
