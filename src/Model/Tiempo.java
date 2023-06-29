@@ -10,9 +10,11 @@ public class Tiempo {
     private static Timeline timeline;
     private static Runnable accionAlFinalizar;
 
+
     public static void iniciarCronometro(Label tiempoLabel, Runnable accionFinalizar) {
-        tiempoRestante = 1 * 60; // 10 minutos en segundos
+        tiempoRestante = 2 * 60; // 10 minutos en segundos
         accionAlFinalizar = accionFinalizar;
+
 
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
             @Override
@@ -37,7 +39,7 @@ public class Tiempo {
         timeline.stop();
     }
 
-    private static String formatearTiempo(int segundos) {
+    public static String formatearTiempo(int segundos) {
         int minutos = segundos / 60;
         int segundosRestantes = segundos % 60;
         return String.format("%02d:%02d", minutos, segundosRestantes);

@@ -89,6 +89,10 @@ public class DesafioIslaController implements Initializable {
     private Label TiempoLabel;
 
     private Stage nuevaVentana;
+    private int tiempoRestante;
+    private Tiempo tiempo;
+
+
 
     /**
      * Método inicializador del controlador.
@@ -98,8 +102,11 @@ public class DesafioIslaController implements Initializable {
      * @param resourceBundle El paquete de recursos utilizado por el objeto de raíz.
      */
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tiempo = new Tiempo();
         Tiempo.iniciarCronometro(TiempoLabel, this::abrirNuevaVentana);
         puntuacion = Puntuacion.getInstance();
         actualizarPuntuacion();
@@ -109,12 +116,21 @@ public class DesafioIslaController implements Initializable {
      * Aumenta la puntuación en 20 y actualiza la puntuación en la interfaz.
      * Hace visible el botón "ContinuarDesafioIsla".
      */
+//prob code error
+    public void reiniciarCronometro() {
+        tiempoRestante = 2 * 60; // Reiniciar el tiempo restante a 2 minutos
+        Tiempo.iniciarCronometro(TiempoLabel, this::abrirNuevaVentana);
+    }
+    //prob code error
 
     @FXML
     public void aumentarPuntuacionBotonFogata() {
         puntuacion.aumentarPuntuacion(20);
         actualizarPuntuacion();
         ContinuarDesafioIsla.setVisible(true);
+        BotonFogata.setDisable(true);
+        BotonRemar.setDisable(true);
+        BotonNadar.setDisable(true);
        // mostrarAlerta("Obtuviste 20 puntos");
     }
     /**
@@ -127,6 +143,9 @@ public class DesafioIslaController implements Initializable {
         puntuacion.aumentarPuntuacion(5);
         actualizarPuntuacion();
         ContinuarDesafioIsla.setVisible(true);
+        BotonRemar.setDisable(true);
+        BotonFogata.setDisable(true);
+        BotonNadar.setDisable(true);
        // mostrarAlerta("Obtuviste 5 puntos");
     }
     /**
@@ -140,6 +159,9 @@ public class DesafioIslaController implements Initializable {
         puntuacion.aumentarPuntuacion(0);
         actualizarPuntuacion();
         ContinuarDesafioIsla.setVisible(true);
+        BotonNadar.setDisable(true);
+        BotonRemar.setDisable(true);
+        BotonFogata.setDisable(true);
         //mostrarAlerta("Obtuviste 0 puntos");
     }
     /**
@@ -158,11 +180,15 @@ public class DesafioIslaController implements Initializable {
     @FXML
     private void handleContinuarIsla (ActionEvent event) {
         try {
+            reiniciarCronometro();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/DesafioSelva.fxml"));
             Parent root = loader.load();
 
-            //Abrir Vista Iniciar
+            // Obtén el controlador de la nueva vista
             DesafioSelvaController DesafioSelvaController = loader.getController();
+            // Pasa el valor del tiempo restante a la nueva vista
+            DesafioSelvaController.setTiempoRestante(tiempoRestante);
+
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();

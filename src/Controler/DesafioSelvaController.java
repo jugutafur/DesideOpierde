@@ -87,12 +87,23 @@ public class DesafioSelvaController implements Initializable {
     private Label TiempoLabel;
 
     private Stage nuevaVentana2;
+    private int tiempoRestante;
+    private Tiempo tiempo;
 
+    public void reiniciarCronometro() {
+        tiempoRestante = 2 * 60; // Reiniciar el tiempo restante a 2 minuto
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         puntuacion = Puntuacion.getInstance();
         actualizarPuntuacion();
+        TiempoLabel.setText(Tiempo.formatearTiempo(tiempoRestante));
     }
+
+    public void setTiempoRestante(int tiempoRestante) {
+        this.tiempoRestante = tiempoRestante;
+    }
+
 
     @FXML
     public void aumentarPuntuacionBotonRoca() {
@@ -124,6 +135,7 @@ public class DesafioSelvaController implements Initializable {
     @FXML
     private void ContinuarSelva (ActionEvent event) {
         try {
+            reiniciarCronometro();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/DesafioIncendio.fxml"));
             Parent root = loader.load();
 
