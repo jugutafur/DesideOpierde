@@ -19,12 +19,12 @@
          <children>
             <Pane fx:id="Pane1" layoutX="171.0" layoutY="-2.0" prefHeight="408.0" prefWidth="430.0">
                <children>
-                  <TextArea layoutX="7.0" layoutY="2.0" prefHeight="400.0" prefWidth="423.0" text="Instrucciones &#10;&#10;Sumérgete en esta historia de oportunidades y decisión donde &#10;podrás salir victorioso utilizando tu habilidad lógica, llevando a &#10;cabo diferentes espacios y momentos donde aprenderás la rutina&#10;diaria. &#10;&#10;1. Registra tu nombre &#10;&#10;2 Al iniciar el juego se te brindara el inicio de la historia donde &#10;luego se te dan dos opciones, para continuar tendrás que &#10;seleccionar algunas de las dos opciones &#10;&#10;3 Tendrás 10 minutos para terminar el juego, la historia está en &#10;tus manos, si la opción que eliges es errónea se reinicia el juego,&#10;aunque la cuenta regresiva sigue. ">
+                  <TextArea layoutX="7.0" layoutY="2.0" prefHeight="400.0" prefWidth="423.0" text="Instrucciones &#10;&#10;Sumérgete en esta historia de oportunidades y decisión donde &#10;podrás salir victorioso utilizando tu habilidad lógica, ayuda a &#10;el personaje principal a escapar del bosque encantado, su destino&#10;esta en tus manos&#10;&#10;1. En el menu principal da click en iniciar y registra tu nombre&#10;2. Al verificar tu nombre se mostraran nuevamente las  &#10;instrucciones y en la parte superior izquierda el boton&#10;de continuar al darle continuar empezara el juego&#10;3.Son 5 escenarios para completar cada escenario se te otorgara&#10;2 minutos para un total de 10 minutos.&#10;4.Para seleccionar una opcion simplemente da click en la imagen&#10;puesta en cada escenario dependiendo de tu eleccion se otorga&#10;un puntaje necesitas minimo 100 puntos para ganar buena suerte">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextArea>
-                  <Button fx:id="BotonVolver" layoutX="309.0" layoutY="327.0" mnemonicParsing="false" style="-fx-background-color: #FBFF4B;" text="Volver" onAction="#handleButtonClick" >
+                  <Button fx:id="BotonVolver" layoutX="309.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #FBFF4B;" text="Volver">
                      <font>
                         <Font size="26.0" />
                      </font>
