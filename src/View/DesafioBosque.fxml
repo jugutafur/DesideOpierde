@@ -41,7 +41,7 @@
         <Button fx:id="BotonTrepar" layoutX="189.0" layoutY="264.0" mnemonicParsing="false" disable="false" onAction="#aumentarPuntuacionBotonTrepar" opacity="0.0" prefHeight="127.0" prefWidth="130.0" text="Button" />
         <Button fx:id="BotonArroyo" layoutX="331.0" layoutY="274.0" mnemonicParsing="false" disable="false" onAction="#aumentarPuntuacionBotonArroyo" opacity="0.0" prefHeight="113.0" prefWidth="121.0" text="Button" />
         <Button fx:id="BotonGritar" layoutX="476.0" layoutY="271.0" mnemonicParsing="false" disable="false" onAction="#aumentarPuntuacionBotonNadarGritar" opacity="0.0" prefHeight="119.0" prefWidth="97.0" text="Button" />
-        <Button fx:id="Salir5" layoutX="22.0" layoutY="330.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Salir">
+        <Button fx:id="BotonSalirBosque" layoutX="22.0" layoutY="330.0" mnemonicParsing="false" onAction="#SalirBosque" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Salir">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
@@ -72,7 +72,7 @@
             </font>
         </Label>
         <Label fx:id="TiempoLabel" layoutX="98.0" layoutY="17.0" prefHeight="29.0" prefWidth="69.0" />
-        <Button fx:id="BotonPista5" layoutX="65.0" layoutY="266.0" mnemonicParsing="false" opacity="0.0" prefHeight="61.0" prefWidth="69.0" text="Button" />
+        <Button fx:id="BotonPista5" layoutX="65.0" layoutY="266.0" mnemonicParsing="false" opacity="0.0" disable="false" onAction="#Pista5" prefHeight="61.0" prefWidth="69.0" text="Button" />
       <Button fx:id="GranFinal" layoutX="213.0" layoutY="185.0" mnemonicParsing="false" visible="false"  onAction="#ContinuarFinal" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Finalizar">
          <font>
             <Font name="System Bold" size="22.0" />

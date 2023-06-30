@@ -4,6 +4,10 @@ public class Puntuacion {
 private static Puntuacion instancia = null;
 private int puntuacion;
 
+        public void reiniciarPuntuacion() {
+                puntuacion = 0;
+        }
+
 private Puntuacion() {
         puntuacion = 0;
         }

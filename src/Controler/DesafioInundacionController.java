@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static javafx.application.Application.launch;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -16,9 +14,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+import static javafx.application.Application.launch;
+
 import javafx.scene.control.Label;
 import Model.Puntuacion;
 import javafx.util.Duration;
+import javafx.scene.control.ButtonType;
+import javafx.application.Platform;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javafx.stage.Window;
+import javafx.stage.Stage;
+import java.util.List;
 
 /**
  * Controlador para la vista del desafío de incendio.
@@ -32,7 +42,13 @@ public class DesafioInundacionController implements Initializable {
     private Button BotonNoHacerND;
 
     @FXML
+    private Button BotonSalirInundacion;
+
+    @FXML
     private Button BotonTerrenoAlto;
+
+    @FXML
+    private Button BotonPista4;
 
     @FXML
     private Button BotonNadarInundacion;
@@ -47,7 +63,7 @@ public class DesafioInundacionController implements Initializable {
     private Timeline timeline;
 
     private Stage NuevaVentana;
-    private int tiempoRestante = 30; // 2 minutos en segundos
+    private int tiempoRestante = 120; // 2 minutos en segundos
     private void actualizarTemporizador(ActionEvent event) {
         int minutos = tiempoRestante / 60;
         int segundos = tiempoRestante % 60;
@@ -72,29 +88,41 @@ public class DesafioInundacionController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE); // Repetir indefinidamente
         timeline.play();
     }
+    private void mostrarAlerta(String mensaje) {
+        // Crear una instancia de Alert
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Puntuación");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+
+        // Mostrar la alerta
+        alert.showAndWait();
+    }
 
     @FXML
     public void aumentarPuntuacionBotonTerrenoAlto() {
-        puntuacion.aumentarPuntuacion(20);
+        puntuacion.aumentarPuntuacion(30);
         actualizarPuntuacion();
         BotonContinuarinundacion.setVisible(true);
         BotonNoHacerND.setDisable(true);
         BotonTerrenoAlto.setDisable(true);
         BotonNadarInundacion.setDisable(true);
         timeline.stop();
-        // mostrarAlerta("Obtuviste 20 puntos");
+        mostrarAlerta("Obtuviste 30 puntos,Felicidades es la opcion correcta");
+        BotonPista4.setDisable(true);
     }
 
     @FXML
     public void aumentarPuntuacionBotonNadarInundacion() {
-        puntuacion.aumentarPuntuacion(5);
+        puntuacion.aumentarPuntuacion(10);
         actualizarPuntuacion();
         BotonContinuarinundacion.setVisible(true);
         BotonNoHacerND.setDisable(true);
         BotonTerrenoAlto.setDisable(true);
         BotonNadarInundacion.setDisable(true);
         timeline.stop();
-        // mostrarAlerta("Obtuviste 5 puntos");
+        mostrarAlerta("Obtuviste 10 puntos,Aceptable sin embargo no es la opcion correcta");
+        BotonPista4.setDisable(true);
     }
 
     @FXML
@@ -106,7 +134,8 @@ public class DesafioInundacionController implements Initializable {
         BotonTerrenoAlto.setDisable(true);
         BotonNadarInundacion.setDisable(true);
         timeline.stop();
-        //mostrarAlerta("Obtuviste 0 puntos");
+        mostrarAlerta("Obtuviste 0 puntos,Pesima eleccion");
+        BotonPista4.setDisable(true);
     }
 
     private void actualizarPuntuacion() {
@@ -133,24 +162,70 @@ public class DesafioInundacionController implements Initializable {
         }
     }
 
+    @FXML
+    private void Pista4 (ActionEvent event) {
+        // Crear una instancia de Alert
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Información");
+        alert.setHeaderText(null);
+        alert.setContentText("Que el nivel del agua no te preocupe");
+
+        // Mostrar la alerta
+        alert.showAndWait();
+        BotonPista4.setDisable(true);
+    }
 
     private void abrirNuevaVentana() {
+        // Obtener la ventana actual
+        Stage stageActual = (Stage) BotonSalirInundacion.getScene().getWindow();
+
+        // Obtener todas las ventanas abiertas
+        List<Stage> stagesAbiertas = Stage.getWindows().stream()
+                .filter(Window::isShowing)
+                .map(Window::getScene)
+                .map(Scene::getWindow)
+                .filter(window -> window instanceof Stage && window != stageActual)
+                .map(window -> (Stage) window)
+                .collect(Collectors.toList());
+
+        // Cerrar todas las ventanas anteriores
+        stagesAbiertas.forEach(Stage::close);
+
+        // Cerrar la ventana actual
+        stageActual.close();
 
         // Crear una instancia de FXMLLoader para cargar el contenido de la nueva ventana desde un archivo FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FinTiempo.fxml"));
 
         try {
             Parent root = loader.load(); // Cargar el contenido del archivo FXML en un objeto Parent
-
-            NuevaVentana = new Stage();
-            NuevaVentana.setTitle("Nueva Ventana");
-            NuevaVentana.setScene(new Scene(root));
-            NuevaVentana.show();;
-
-        }
-        catch (IOException e) {
+            FinTiempoController FinTiempoController = loader.getController();
+            // Crear una nueva ventana
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setTitle("Nueva Ventana");
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    public void SalirInundacion (ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmacion");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Estas seguro que quieres salir del juego?");
 
+        // Agregar botones de salida y no
+        ButtonType botonSi = new ButtonType("Si");
+        ButtonType botonNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(botonSi, botonNo);
+
+        // Obtener la respuesta del usuario
+        ButtonType respuesta = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        if (respuesta == botonSi) {
+            // Terminar la ejecución de la aplicación
+            System.exit(0);
+        }
+    }
 }

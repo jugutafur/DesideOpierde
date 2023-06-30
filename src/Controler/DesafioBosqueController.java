@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static javafx.application.Application.launch;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -16,9 +14,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+import static javafx.application.Application.launch;
+
 import javafx.scene.control.Label;
 import Model.Puntuacion;
 import javafx.util.Duration;
+import javafx.scene.control.ButtonType;
+import javafx.application.Platform;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javafx.stage.Window;
+import javafx.stage.Stage;
+import java.util.List;
 
 /**
  * Controlador para la vista del desafío de incendio.
@@ -30,6 +40,12 @@ public class DesafioBosqueController implements Initializable {
 
     @FXML
     private Button BotonTrepar;
+
+    @FXML
+    private Button BotonSalirBosque;
+
+    @FXML
+    private Button BotonPista5;
 
     @FXML
     private Button BotonArroyo;
@@ -48,7 +64,7 @@ public class DesafioBosqueController implements Initializable {
 
     private Stage NuevaVentana;
     private Stage abrirFinalVentana;
-    private int tiempoRestante = 30; // 2 minutos en segundos
+    private int tiempoRestante = 120; // 2 minutos en segundos
     private void actualizarTemporizador(ActionEvent event) {
         int minutos = tiempoRestante / 60;
         int segundos = tiempoRestante % 60;
@@ -64,6 +80,16 @@ public class DesafioBosqueController implements Initializable {
 
         }
     }
+    private void mostrarAlerta(String mensaje) {
+        // Crear una instancia de Alert
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Puntuación");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+
+        // Mostrar la alerta
+        alert.showAndWait();
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         puntuacion = Puntuacion.getInstance();
@@ -76,26 +102,28 @@ public class DesafioBosqueController implements Initializable {
 
     @FXML
     public void aumentarPuntuacionBotonArroyo() {
-        puntuacion.aumentarPuntuacion(20);
+        puntuacion.aumentarPuntuacion(30);
         actualizarPuntuacion();
         GranFinal.setVisible(true);
         BotonTrepar.setDisable(true);
         BotonGritar.setDisable(true);
         BotonArroyo.setDisable(true);
         timeline.stop();
-        // mostrarAlerta("Obtuviste 20 puntos");
+        mostrarAlerta("Obtuviste 30 puntos,Felicidades es la opcion correcta");
+        BotonPista5.setDisable(true);
     }
 
     @FXML
     public void aumentarPuntuacionBotonTrepar() {
-        puntuacion.aumentarPuntuacion(5);
+        puntuacion.aumentarPuntuacion(10);
         actualizarPuntuacion();
         GranFinal.setVisible(true);
         BotonTrepar.setDisable(true);
         BotonGritar.setDisable(true);
         BotonArroyo.setDisable(true);
         timeline.stop();
-        // mostrarAlerta("Obtuviste 5 puntos");
+        mostrarAlerta("Obtuviste 10 puntos,Aceptable sin embargo no es la opcion correcta");
+        BotonPista5.setDisable(true);
     }
 
     @FXML
@@ -107,7 +135,8 @@ public class DesafioBosqueController implements Initializable {
         BotonGritar.setDisable(true);
         BotonArroyo.setDisable(true);
         timeline.stop();
-        //mostrarAlerta("Obtuviste 0 puntos");
+        mostrarAlerta("Obtuviste 0 puntos,Pesima eleccion");
+        BotonPista5.setDisable(true);
     }
 
     private void actualizarPuntuacion() {
@@ -122,62 +151,140 @@ public class DesafioBosqueController implements Initializable {
             abrirFinalVentana();
         }
     }
-    @FXML
-    private void ContinuarFinal () {
+    private void ContinuarFinal() {
+        // Obtener la ventana actual
+        Stage stageActual = (Stage) BotonSalirBosque.getScene().getWindow();
+
+        // Obtener todas las ventanas abiertas
+        List<Stage> stagesAbiertas = Stage.getWindows().stream()
+                .filter(Window::isShowing)
+                .map(Window::getScene)
+                .map(Scene::getWindow)
+                .filter(window -> window instanceof Stage && window != stageActual)
+                .map(window -> (Stage) window)
+                .collect(Collectors.toList());
+
+        // Cerrar todas las ventanas anteriores
+        stagesAbiertas.forEach(Stage::close);
+
+        // Cerrar la ventana actual
+        stageActual.close();
+
+        // Crear una instancia de FXMLLoader para cargar el contenido de la nueva ventana desde un archivo FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Ganaste.fxml"));
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Ganaste.fxml"));
-            Parent root = loader.load();
-
-            //Abrir Vista Iniciar
-            GanasteController GanasteController = loader.getController();
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Parent root = loader.load(); // Cargar el contenido del archivo FXML en un objeto Parent
+            GanasteController GanasteController= loader.getController();
+            // Crear una nueva ventana
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setTitle("Nueva Ventana");
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void abrirFinalVentana () {
+        // Obtener la ventana actual
+        Stage stageActual = (Stage) BotonSalirBosque.getScene().getWindow();
+
+        // Obtener todas las ventanas abiertas
+        List<Stage> stagesAbiertas = Stage.getWindows().stream()
+                .filter(Window::isShowing)
+                .map(Window::getScene)
+                .map(Scene::getWindow)
+                .filter(window -> window instanceof Stage && window != stageActual)
+                .map(window -> (Stage) window)
+                .collect(Collectors.toList());
+
+        // Cerrar todas las ventanas anteriores
+        stagesAbiertas.forEach(Stage::close);
+
+        // Cerrar la ventana actual
+        stageActual.close();
 
         // Crear una instancia de FXMLLoader para cargar el contenido de la nueva ventana desde un archivo FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FinPuntuacion.fxml"));
 
         try {
             Parent root = loader.load(); // Cargar el contenido del archivo FXML en un objeto Parent
-
-            NuevaVentana = new Stage();
-            NuevaVentana.setTitle("Nueva Ventana");
-            NuevaVentana.setScene(new Scene(root));
-            NuevaVentana.show();;
-
-        }
-        catch (IOException e) {
+            FinPuntuacionController FinPuntuacionController = loader.getController();
+            // Crear una nueva ventana
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setTitle("Nueva Ventana");
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void Pista5 (ActionEvent event) {
+        // Crear una instancia de Alert
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Información");
+        alert.setHeaderText(null);
+        alert.setContentText("Sigue la melodia");
+
+        // Mostrar la alerta
+        alert.showAndWait();
+        BotonPista5.setDisable(true);
+    }
 
     private void abrirNuevaVentana() {
+        // Obtener la ventana actual
+        Stage stageActual = (Stage) BotonSalirBosque.getScene().getWindow();
+
+        // Obtener todas las ventanas abiertas
+        List<Stage> stagesAbiertas = Stage.getWindows().stream()
+                .filter(Window::isShowing)
+                .map(Window::getScene)
+                .map(Scene::getWindow)
+                .filter(window -> window instanceof Stage && window != stageActual)
+                .map(window -> (Stage) window)
+                .collect(Collectors.toList());
+
+        // Cerrar todas las ventanas anteriores
+        stagesAbiertas.forEach(Stage::close);
+
+        // Cerrar la ventana actual
+        stageActual.close();
 
         // Crear una instancia de FXMLLoader para cargar el contenido de la nueva ventana desde un archivo FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FinTiempo.fxml"));
 
         try {
             Parent root = loader.load(); // Cargar el contenido del archivo FXML en un objeto Parent
-
-            NuevaVentana = new Stage();
-            NuevaVentana.setTitle("Nueva Ventana");
-            NuevaVentana.setScene(new Scene(root));
-            NuevaVentana.show();;
-
-        }
-        catch (IOException e) {
+            FinTiempoController FinTiempoController = loader.getController();
+            // Crear una nueva ventana
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setTitle("Nueva Ventana");
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void SalirBosque (ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Estas seguro que quieres salir del juego?");
 
+        // Agregar botones de salida y no
+        ButtonType botonSi = new ButtonType("Si");
+        ButtonType botonNo = new ButtonType("No");
+        alert.getButtonTypes().setAll(botonSi, botonNo);
+
+        // Obtener la respuesta del usuario
+        ButtonType respuesta = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+        if (respuesta == botonSi) {
+            // Terminar la ejecución de la aplicación
+            System.exit(0);
+        }
+    }
 }

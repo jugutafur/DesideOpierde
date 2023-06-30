@@ -28,10 +28,48 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import Model.Usuario;
+import Model.Puntuacion;
 public class FinTiempoController implements Initializable {
 
-    @Override
+    @FXML
+    private Button Reintentar;
+    @FXML
+    private  Button Salir;
 
+    @FXML
+    private void ActivarReintentar(ActionEvent event) {
+        Puntuacion.getInstance().reiniciarPuntuacion();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Instrucciones.fxml"));
+            Parent root = loader.load();
+
+            //Abrir Vista Iniciar
+            InstruccionesController InstruccionesController = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void ActivarSalir(ActionEvent event) {
+        try {
+
+            System.exit(0);
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }

@@ -44,7 +44,7 @@
         <Button fx:id="BotonNohacernd" disable="false" layoutX="198.0" layoutY="267.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonNohacernd" opacity="0.0" prefHeight="127.0" prefWidth="130.0" text="Button" />
         <Button fx:id="BotonZonaSegura" disable="false" layoutX="349.0" layoutY="284.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonZonaSegura" opacity="0.0" prefHeight="113.0" prefWidth="100.0" text="Button" />
         <Button fx:id="BotonApagarIncendio" disable="false" layoutX="468.0" layoutY="281.0" mnemonicParsing="false" onAction="#aumentarPuntuacionBotonApagarIncendio" opacity="0.0" prefHeight="119.0" prefWidth="121.0" text="Button" />
-        <Button fx:id="BotonSalir3" layoutX="22.0" layoutY="330.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Salir">
+        <Button fx:id="IncendioSalir" layoutX="22.0" layoutY="330.0" mnemonicParsing="false" onAction="#SalirIncendio" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Salir">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
@@ -75,7 +75,7 @@
             </font>
         </Label>
         <Label fx:id="TiempoLabel" layoutX="98.0" layoutY="17.0" prefHeight="29.0" prefWidth="69.0" />
-        <Button fx:id="BotonPista3" layoutX="65.0" layoutY="266.0" mnemonicParsing="false" opacity="0.0" prefHeight="61.0" prefWidth="69.0" text="Button" />
+        <Button fx:id="BotonPista3" layoutX="65.0" layoutY="266.0" mnemonicParsing="false" disable="false" opacity="0.0" onAction="#Pista3" prefHeight="61.0" prefWidth="69.0" text="Button" />
       <Button fx:id="IncendioContinuar" layoutX="207.0" layoutY="193.0" mnemonicParsing="false" onAction="#SiguienteEscenaIncendio" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Continuar" visible="false">
          <font>
             <Font name="System Bold" size="22.0" />

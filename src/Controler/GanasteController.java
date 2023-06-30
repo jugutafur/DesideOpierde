@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javafx.application.Application.launch;
+
+import Model.Puntuacion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +33,46 @@ import javafx.scene.control.Label;
 public class GanasteController implements Initializable {
 
     @FXML
+    private Button Reintentar3;
+
+    @FXML
+    private Button Salir3;
+
+    @FXML
     private Label Jugador1;
+
+    @FXML
+    private void ActivarReintentar3(ActionEvent event) {
+        Puntuacion.getInstance().reiniciarPuntuacion();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Instrucciones.fxml"));
+            Parent root = loader.load();
+
+            //Abrir Vista Iniciar
+            InstruccionesController InstruccionesController = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void ActivarSalir3(ActionEvent event) {
+        try {
+
+            System.exit(0);
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     @Override
 
