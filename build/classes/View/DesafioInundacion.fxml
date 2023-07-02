@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="558.0" style="-fx-background-color: #32858A;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.DesafioInundacionController">
+    <children>
+        <ImageView fitHeight="264.0" fitWidth="393.0" layoutX="202.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/ArbolesInundacion.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="79.0" fitWidth="114.0" layoutX="206.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/PersonaEninundacion.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="87.0" fitWidth="114.0" layoutX="352.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/LugarAlto.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="71.0" fitWidth="121.0" layoutX="468.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/PerroInundacion.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="41.0" fitWidth="262.0" layoutX="263.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/TextoInundacion.png" />
+            </image>
+        </ImageView>
+        <Text fill="#f8f8f8" layoutX="218.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No hacer nada" />
+        <Text fill="#f8f8f8" layoutX="343.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subir terreno alto " />
+        <Text fill="#f8f8f8" layoutX="451.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nadar a travez de la inundacion">
+            <font>
+                <Font size="10.0" />
+            </font></Text>
+        <Button fx:id="BotonNoHacerND" layoutX="198.0" layoutY="267.0" mnemonicParsing="false" opacity="0.0" prefHeight="127.0" prefWidth="130.0" text="Button" />
+        <Button fx:id="BotonTerrenoAlto" layoutX="341.0" layoutY="281.0" mnemonicParsing="false" opacity="0.0" prefHeight="113.0" prefWidth="100.0" text="Button" />
+        <Button fx:id="BotonNadarInundacion" layoutX="461.0" layoutY="271.0" mnemonicParsing="false" opacity="0.0" prefHeight="119.0" prefWidth="121.0" text="Button" />
+        <Button fx:id="BotonSalir4" layoutX="22.0" layoutY="330.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="145.0" style="-fx-background-color: #3AD314;" text="Salir">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Button>
+        <ImageView fitHeight="54.0" fitWidth="68.0" layoutX="67.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/Pista.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="222.0" fitWidth="177.0" layoutX="9.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/TextoInundacionExtendido.jpg" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="29.0" fitWidth="136.0" layoutX="22.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../resources/Tiempo_restante.jpg" />
+            </image>
+        </ImageView>
+        <Label layoutX="465.0" layoutY="229.0" prefHeight="17.0" prefWidth="69.0" text="Puntuacion" textFill="#fafffd">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </Label>
+        <Label fx:id="PuntuacionLabel4" layoutX="562.0" layoutY="230.0">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        <Label fx:id="TiempoLabel4" layoutX="98.0" layoutY="17.0" prefHeight="29.0" prefWidth="69.0" />
+        <Button fx:id="BotonPista4" layoutX="65.0" layoutY="266.0" mnemonicParsing="false" opacity="0.0" prefHeight="61.0" prefWidth="69.0" text="Button" />
+      <Text fill="#f8f8f8" layoutX="343.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="para evitar agua" />
+    </children>
+</AnchorPane>
