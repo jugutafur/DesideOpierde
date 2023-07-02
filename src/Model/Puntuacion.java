@@ -15,7 +15,7 @@ private Puntuacion() {
 public static Puntuacion getInstance() {
         if (instancia == null) {
         instancia = new Puntuacion();
-        }
+                  }
         return instancia;
         }
 
@@ -26,6 +26,7 @@ public int getPuntuacion() {
 public void aumentarPuntuacion(int puntos) {
         puntuacion += puntos;
         }
+
         }
 
 

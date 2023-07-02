@@ -109,7 +109,7 @@ public class DesafioIslaController implements Initializable {
      * Aumenta la puntuación en 20 y actualiza la puntuación en la interfaz.
      * Hace visible el botón "ContinuarDesafioIsla".
      */
-//prob code error
+
     private void mostrarAlerta(String mensaje) {
         // Crear una instancia de Alert
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -120,7 +120,6 @@ public class DesafioIslaController implements Initializable {
         // Mostrar la alerta
         alert.showAndWait();
     }
-    //prob code error
 
     @FXML
     public void aumentarPuntuacionBotonFogata() {
